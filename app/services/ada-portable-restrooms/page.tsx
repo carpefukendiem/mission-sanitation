@@ -154,7 +154,7 @@ export default function AdaPortableRestroomsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/california-hills.jpg" alt="Green California hills" fill sizes="100vw" className="object-cover" priority />
+          <Image src="/images/ada-portable-restroom.webp" alt="ADA compliant portable restroom rental in Santa Ynez Valley" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 lg:py-32">

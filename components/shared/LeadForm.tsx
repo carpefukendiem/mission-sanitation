@@ -100,7 +100,7 @@ export function LeadForm({
 
       {showServiceType && (
         <div>
-          <label className="text-sm font-medium text-slate-700 mb-2 block">Service Type * <span className="text-xs font-normal text-slate-400">(select all that apply)</span></label>
+          <label className="text-sm font-medium text-slate-700 mb-2 block">Service Type * <span className="text-xs font-normal text-slate-500">(select all that apply)</span></label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
               { value: "portable-restroom-rental", label: "Portable Restroom Rental" },
@@ -123,8 +123,8 @@ export function LeadForm({
 
       {showRentalType && (
         <div>
-          <label className="text-sm font-medium text-slate-700 mb-1 block">Rental Type</label>
-          <select name="rentalType" className={selectClasses} defaultValue="">
+          <label htmlFor="rentalType" className="text-sm font-medium text-slate-700 mb-1 block">Rental Type</label>
+          <select id="rentalType" name="rentalType" className={selectClasses} defaultValue="">
             <option value="">Select rental type</option>
             <option value="standard-unit">Standard Unit</option>
             <option value="deluxe-unit">Deluxe Unit</option>
@@ -138,8 +138,8 @@ export function LeadForm({
 
       {showServiceArea && (
         <div>
-          <label className="text-sm font-medium text-slate-700 mb-1 block">Service Area *</label>
-          <select name="serviceArea" className={selectClasses} required defaultValue="">
+          <label htmlFor="serviceArea" className="text-sm font-medium text-slate-700 mb-1 block">Service Area *</label>
+          <select id="serviceArea" name="serviceArea" className={selectClasses} required defaultValue="">
             <option value="" disabled>Select your area</option>
             <option value="santa-ynez-valley">Santa Ynez Valley</option>
             <option value="solvang">Solvang</option>
@@ -164,8 +164,8 @@ export function LeadForm({
       </div>
 
       <div>
-        <label className="text-sm font-medium text-slate-700 mb-1 block">Rental Duration</label>
-        <select name="rentalDuration" className={selectClasses} defaultValue="">
+        <label htmlFor="rentalDuration" className="text-sm font-medium text-slate-700 mb-1 block">Rental Duration</label>
+        <select id="rentalDuration" name="rentalDuration" className={selectClasses} defaultValue="">
           <option value="">Select duration</option>
           <option value="1-day">1 Day</option>
           <option value="weekend">Weekend</option>
@@ -210,7 +210,7 @@ export function LeadForm({
         )}
       </Button>
 
-      <p className="text-xs text-slate-400 text-center">
+      <p className="text-xs text-slate-500 text-center">
         No spam, ever. Your information is only used to provide your quote or service response.
       </p>
     </form>

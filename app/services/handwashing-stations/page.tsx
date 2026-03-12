@@ -168,7 +168,7 @@ export default function HandwashingStationsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/handwashing.jpg" alt="Handwashing station" fill sizes="100vw" className="object-cover" priority />
+          <Image src="/images/portable-hand-washing-stations.webp" alt="Portable handwashing station rental" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 lg:py-32">
