@@ -27,7 +27,7 @@ import { LeadForm } from "@/components/shared/LeadForm"
 export const metadata: Metadata = {
   title: "Santa Ynez Valley Portable Restroom Rentals",
   description:
-    "Portable restroom rentals throughout the Santa Ynez Valley — Solvang, Santa Ynez, Buellton & Los Olivos. Events, weddings, construction sites. Call Mission Sanitation at (805) 688-8999.",
+    "Portable restroom rentals throughout the Santa Ynez Valley — Solvang, Santa Ynez, Buellton & Los Olivos. Events, private parties, construction sites. Call Mission Sanitation at (805) 688-8999.",
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -74,7 +74,7 @@ export default function SantaYnezValleyPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley vineyards" fill className="object-cover" priority />
+          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley vineyards" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -89,7 +89,7 @@ export default function SantaYnezValleyPage() {
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl">
               Mission Sanitation provides clean, reliable portable restrooms to
-              every corner of the Santa Ynez Valley. From vineyard weddings along
+              every corner of the Santa Ynez Valley. From vineyard events along
               Foxen Canyon Road to construction projects on Highway 246, we deliver
               and service restrooms throughout Solvang, Santa Ynez, Buellton, Los
               Olivos, and the surrounding areas.
@@ -108,7 +108,7 @@ export default function SantaYnezValleyPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -220,14 +220,14 @@ export default function SantaYnezValleyPage() {
               </p>
               <p className="text-slate-600 mb-4">
                 Mission Sanitation serves vineyard events along Foxen Canyon Road and
-                Happy Canyon, ranch weddings on private estates, community
+                Happy Canyon, private events on ranch estates, community
                 celebrations like Solvang Danish Days, the Santa Ynez Valley Rotary
                 events, construction crews working on residential and commercial
                 projects, and agricultural operations during harvest season.
               </p>
               <p className="text-slate-600 mb-4">
                 Whether you are hosting an intimate gathering at a Los Olivos tasting
-                room, a large outdoor wedding near Cachuma, or managing a multi-month
+                room, a large outdoor event near Cachuma, or managing a multi-month
                 build in Buellton, we have the units, the service schedule, and the
                 local knowledge to keep your site clean and comfortable.
               </p>
@@ -349,7 +349,7 @@ export default function SantaYnezValleyPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

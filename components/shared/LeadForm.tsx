@@ -87,7 +87,7 @@ export function LeadForm({
 
       <div>
         <label className="text-sm font-medium text-slate-700 mb-1 block">Company / Organization</label>
-        <Input name="company" placeholder="Wedding Planner, Contractor, Winery, School, etc." className="h-12" />
+        <Input name="company" placeholder="Event Planner, Contractor, Winery, School, etc." className="h-12" />
       </div>
 
       {showServiceType && (
@@ -98,7 +98,6 @@ export function LeadForm({
             <option value="portable-restroom-rental">Portable Restroom Rental</option>
             <option value="event-restroom-rental">Event Portable Restroom Rental</option>
             <option value="construction-restroom-rental">Construction Portable Toilets</option>
-            <option value="wedding-restroom-rental">Wedding Restroom Rentals</option>
             <option value="ada-restroom-rental">ADA Portable Restrooms</option>
             <option value="restrooms-with-sinks">Portable Restrooms with Sinks</option>
             <option value="handwashing-stations">Handwashing Stations</option>

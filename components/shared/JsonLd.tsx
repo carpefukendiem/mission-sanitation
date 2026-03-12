@@ -6,7 +6,7 @@ export function LocalBusinessJsonLd() {
     "@type": "LocalBusiness",
     name: SITE.name,
     description:
-      "Clean, reliable portable restroom rentals in the Santa Ynez Valley. Serving Solvang, Santa Ynez, Buellton, and Los Olivos for events, construction, weddings, and more.",
+      "Clean, reliable portable restroom rentals in the Santa Ynez Valley. Serving Solvang, Santa Ynez, Buellton, and Los Olivos for events, construction, and more.",
     url: SITE.domain,
     telephone: "+18056888999",
     email: SITE.email,

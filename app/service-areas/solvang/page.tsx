@@ -27,7 +27,7 @@ import { LeadForm } from "@/components/shared/LeadForm"
 export const metadata: Metadata = {
   title: "Solvang Portable Restroom Rentals",
   description:
-    "Portable restroom rentals in Solvang, CA — our home base. Weddings, events, construction sites & festivals. Clean units, fast delivery. Call Mission Sanitation at (805) 688-8999.",
+    "Portable restroom rentals in Solvang, CA — our home base. Events, construction sites & festivals. Clean units, fast delivery. Call Mission Sanitation at (805) 688-8999.",
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -74,7 +74,7 @@ export default function SolvangPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/solvang-town.jpg" alt="Solvang California" fill className="object-cover" priority />
+          <Image src="/images/solvang-town.jpg" alt="Solvang California" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -107,7 +107,7 @@ export default function SolvangPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -137,7 +137,7 @@ export default function SolvangPage() {
               Services Available in Solvang
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              From Danish Days to vineyard weddings, construction projects to
+              From Danish Days to vineyard events, construction projects to
               community gatherings — we have the right portable sanitation solution
               for every Solvang event and job site.
             </p>
@@ -333,7 +333,7 @@ export default function SolvangPage() {
             Your Solvang Portable Restroom Provider
           </h2>
           <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-            From Danish Days to vineyard weddings, Mission Sanitation has been
+            From Danish Days to vineyard events, Mission Sanitation has been
             Solvang&apos;s trusted portable restroom provider. Get your free quote
             today.
           </p>
@@ -351,7 +351,7 @@ export default function SolvangPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

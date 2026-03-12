@@ -9,15 +9,15 @@ import { SITE } from "@/lib/constants"
 export const metadata: Metadata = {
   title: "Customer Reviews",
   description:
-    "Read what customers are saying about Mission Sanitation. 5-star portable restroom rental service trusted by wedding planners, contractors, and event organizers in the Santa Ynez Valley.",
+    "Read what customers are saying about Mission Sanitation. 5-star portable restroom rental service trusted by event planners, contractors, and event organizers in the Santa Ynez Valley.",
 }
 
 const REVIEWS = [
   {
     name: "Sarah M.",
-    role: "Wedding Planner",
+    role: "Event Coordinator",
     location: "Solvang",
-    text: "I recommend Mission Sanitation to every bride I work with. The units they provided for a vineyard wedding last month were immaculate — guests actually complimented the restrooms. That never happens. Delivery was right on time, and the team was incredibly easy to coordinate with.",
+    text: "I recommend Mission Sanitation to every client I work with. The units they provided for a vineyard event last month were immaculate — guests actually complimented the restrooms. That never happens. Delivery was right on time, and the team was incredibly easy to coordinate with.",
     rating: 5,
   },
   {
@@ -57,9 +57,9 @@ const REVIEWS = [
   },
   {
     name: "Amanda W.",
-    role: "Wedding Planner",
+    role: "Event Planner",
     location: "Santa Ynez",
-    text: "For a ranch wedding with 200 guests, we needed units that would blend in and stay clean all evening. Mission Sanitation nailed it. They even came by mid-event for a quick check without us asking. That kind of attention to detail sets them apart.",
+    text: "For a ranch event with 200 guests, we needed units that would blend in and stay clean all evening. Mission Sanitation nailed it. They even came by mid-event for a quick check without us asking. That kind of attention to detail sets them apart.",
     rating: 5,
   },
   {
@@ -91,7 +91,7 @@ export default function ReviewsPage() {
       {/* Header */}
       <section className="relative overflow-hidden text-white py-16 md:py-20">
         <div className="absolute inset-0">
-          <Image src="/images/outdoor-event.jpg" alt="Santa Ynez Valley event" fill className="object-cover" priority />
+          <Image src="/images/outdoor-event.jpg" alt="Santa Ynez Valley event" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
@@ -102,7 +102,7 @@ export default function ReviewsPage() {
             ))}
           </div>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-            Don&apos;t just take our word for it. Hear from the wedding planners, contractors, event organizers, and families who trust Mission Sanitation.
+            Don&apos;t just take our word for it. Hear from the event planners, contractors, event organizers, and families who trust Mission Sanitation.
           </p>
         </div>
       </section>
@@ -151,7 +151,7 @@ export default function ReviewsPage() {
               </Button>
             </Link>
             <a href={SITE.phoneHref}>
-              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
+              <Button size="lg" variant="outline" className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}
               </Button>

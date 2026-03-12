@@ -128,7 +128,7 @@ export default function ConstructionPortableToiletsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/construction-site.jpg" alt="Construction site" fill className="object-cover" priority />
+          <Image src="/images/construction-site.jpg" alt="Construction site" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -163,7 +163,7 @@ export default function ConstructionPortableToiletsPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                    className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     {SITE.phone}
@@ -516,7 +516,7 @@ export default function ConstructionPortableToiletsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

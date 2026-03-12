@@ -42,7 +42,7 @@ export default function ServiceAreasPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/wine-country.jpg" alt="Santa Ynez Valley landscape" fill className="object-cover" priority />
+          <Image src="/images/wine-country.jpg" alt="Santa Ynez Valley landscape" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -57,8 +57,8 @@ export default function ServiceAreasPage() {
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl">
               Mission Sanitation is based in Solvang and serves every community in the
-              Santa Ynez Valley. Whether you need restrooms for a vineyard wedding, a
-              construction site, or a community event, we deliver clean, reliable units
+              Santa Ynez Valley. Whether you need restrooms for a vineyard event, a
+              construction site, or a community gathering, we deliver clean, reliable units
               right to your location.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -75,7 +75,7 @@ export default function ServiceAreasPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -248,7 +248,7 @@ export default function ServiceAreasPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

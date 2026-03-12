@@ -27,7 +27,7 @@ import { LeadForm } from "@/components/shared/LeadForm"
 export const metadata: Metadata = {
   title: "Santa Ynez Portable Restroom Rentals",
   description:
-    "Portable restroom rentals in Santa Ynez, CA. Ranches, equestrian events, weddings & construction sites. Clean units, reliable delivery. Call Mission Sanitation at (805) 688-8999.",
+    "Portable restroom rentals in Santa Ynez, CA. Ranches, equestrian events, private parties & construction sites. Clean units, reliable delivery. Call Mission Sanitation at (805) 688-8999.",
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -74,7 +74,7 @@ export default function SantaYnezPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/ranch-landscape.jpg" alt="Santa Ynez ranch landscape" fill className="object-cover" priority />
+          <Image src="/images/ranch-landscape.jpg" alt="Santa Ynez ranch landscape" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -89,7 +89,7 @@ export default function SantaYnezPage() {
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl">
               Santa Ynez is home to sprawling ranches, equestrian estates, and some
-              of the valley&apos;s most beautiful wedding venues. Mission Sanitation
+              of the valley&apos;s most beautiful event venues. Mission Sanitation
               delivers clean, well-maintained portable restrooms to every corner of
               this historic community — from the town center to the most remote
               ranch roads.
@@ -108,7 +108,7 @@ export default function SantaYnezPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -138,7 +138,7 @@ export default function SantaYnezPage() {
               Services Available in Santa Ynez
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Whether you are hosting a ranch wedding, running an equestrian event,
+              Whether you are hosting a ranch event, running an equestrian event,
               or managing a construction project, we have the portable sanitation
               solutions you need in Santa Ynez.
             </p>
@@ -227,13 +227,14 @@ export default function SantaYnezPage() {
                 and Edison Street.
               </p>
               <p className="text-slate-600 mb-4">
-                Ranch weddings are hugely popular in Santa Ynez, with couples drawn
-                to the area&apos;s oak-studded hillsides and golden light. Our{" "}
+                Ranch events and private parties are hugely popular in Santa Ynez,
+                with hosts drawn to the area&apos;s oak-studded hillsides and golden
+                light. Our{" "}
                 <Link
-                  href="/services/wedding-restroom-rentals"
+                  href="/services/event-portable-restroom-rentals"
                   className="text-[#247DA9] hover:underline font-medium"
                 >
-                  wedding restroom rentals
+                  event portable restrooms
                 </Link>{" "}
                 ensure your guests have clean, comfortable facilities that match
                 the elegance of your venue. We also serve construction crews working
@@ -266,7 +267,7 @@ export default function SantaYnezPage() {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-[#247DA9] mt-0.5 shrink-0" />
                   <p className="text-slate-700">
-                    Upscale units available for weddings and private events
+                    Upscale units available for private events and celebrations
                   </p>
                 </div>
                 <div className="flex items-start gap-3">
@@ -338,7 +339,7 @@ export default function SantaYnezPage() {
             Need Portable Restrooms in Santa Ynez?
           </h2>
           <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-            From ranch weddings to equestrian events and construction sites,
+            From ranch events to equestrian gatherings and construction sites,
             Mission Sanitation delivers clean, reliable portable restrooms
             throughout Santa Ynez.
           </p>
@@ -356,7 +357,7 @@ export default function SantaYnezPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

@@ -9,7 +9,7 @@ export function Footer() {
       {/* CTA banner */}
       <div className="relative">
         <div className="absolute inset-0">
-          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley" fill className="object-cover" />
+          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-[#247DA9]/85" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-10 text-center">
@@ -52,7 +52,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-slate-400 mb-4">
-              The Santa Ynez Valley&apos;s trusted portable restroom provider. Clean units, reliable service, and fast delivery for events, construction, weddings, and more.
+              The Santa Ynez Valley&apos;s trusted portable restroom provider. Clean units, reliable service, and fast delivery for events, construction, and more.
             </p>
             <div className="space-y-2 text-sm">
               <a href={SITE.phoneHref} className="flex items-center gap-2 hover:text-white transition-colors">

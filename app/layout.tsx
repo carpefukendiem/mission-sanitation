@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Mission Sanitation",
   },
   description:
-    "Clean, reliable portable restroom rentals in Solvang, Santa Ynez, Buellton & Los Olivos. Event, construction, wedding & ADA restrooms. Call (805) 688-8999 for a free quote.",
+    "Clean, reliable portable restroom rentals in Solvang, Santa Ynez, Buellton & Los Olivos. Event, construction & ADA restrooms. Call (805) 688-8999 for a free quote.",
   metadataBase: new URL("https://missionsanitation.net"),
   openGraph: {
     type: "website",

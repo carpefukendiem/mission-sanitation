@@ -52,7 +52,7 @@ export default function AboutPage() {
       {/* Header */}
       <section className="relative overflow-hidden text-white py-16 md:py-20">
         <div className="absolute inset-0">
-          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley" fill className="object-cover" priority />
+          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
@@ -80,7 +80,7 @@ export default function AboutPage() {
             </p>
             <p>
               We believe that portable sanitation does not have to be an afterthought. Whether you are planning a
-              vineyard wedding, managing a construction site, or organizing a community event, you deserve restrooms
+              vineyard event, managing a construction site, or organizing a community gathering, you deserve restrooms
               that are clean, well-maintained, and delivered on time. That is the standard we hold ourselves to
               every single day.
             </p>
@@ -159,7 +159,7 @@ export default function AboutPage() {
               </Button>
             </Link>
             <a href={SITE.phoneHref}>
-              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
+              <Button size="lg" variant="outline" className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}
               </Button>

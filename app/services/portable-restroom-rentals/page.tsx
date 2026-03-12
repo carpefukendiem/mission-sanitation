@@ -105,7 +105,7 @@ const FAQS = [
   },
   {
     q: "How far in advance should I book my portable restroom rental?",
-    a: "We recommend booking at least one to two weeks in advance, especially during peak wedding and event season (April through October). However, we do offer same-day delivery for urgent needs when units are available.",
+    a: "We recommend booking at least one to two weeks in advance, especially during peak event season (April through October). However, we do offer same-day delivery for urgent needs when units are available.",
   },
 ]
 
@@ -115,7 +115,7 @@ export default function PortableRestroomRentalsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/ranch-landscape.jpg" alt="California ranch landscape in Santa Ynez Valley" fill className="object-cover" priority />
+          <Image src="/images/ranch-landscape.jpg" alt="California ranch landscape in Santa Ynez Valley" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -150,7 +150,7 @@ export default function PortableRestroomRentalsPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                    className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     {SITE.phone}
@@ -201,7 +201,7 @@ export default function PortableRestroomRentalsPage() {
             <p className="text-lg text-slate-600">
               Mission Sanitation is the Santa Ynez Valley&apos;s go-to provider
               for portable restroom rentals. Whether you are hosting an outdoor
-              wedding at a vineyard in Los Olivos, managing a construction
+              outdoor gathering at a vineyard in Los Olivos, managing a construction
               project in Buellton, or organizing a community festival in
               Solvang, our portable restrooms give your guests and crew the
               clean, comfortable facilities they deserve.
@@ -466,7 +466,7 @@ export default function PortableRestroomRentalsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

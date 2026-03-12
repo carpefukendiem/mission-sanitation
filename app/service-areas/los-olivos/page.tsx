@@ -27,7 +27,7 @@ import { LeadForm } from "@/components/shared/LeadForm"
 export const metadata: Metadata = {
   title: "Los Olivos Portable Restroom Rentals",
   description:
-    "Portable restroom rentals in Los Olivos, CA. Wineries, vineyard weddings, tasting room events & art galleries. Clean units, reliable service. Call Mission Sanitation at (805) 688-8999.",
+    "Portable restroom rentals in Los Olivos, CA. Wineries, vineyard events, tasting room events & art galleries. Clean units, reliable service. Call Mission Sanitation at (805) 688-8999.",
 }
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -74,7 +74,7 @@ export default function LosOlivosPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/wine-country.jpg" alt="Los Olivos wine country" fill className="object-cover" priority />
+          <Image src="/images/wine-country.jpg" alt="Los Olivos wine country" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -91,7 +91,7 @@ export default function LosOlivosPage() {
               Los Olivos is the heart of Santa Barbara County wine country, where
               world-class tasting rooms line Grand Avenue and vineyard estates dot
               the surrounding hills. Mission Sanitation provides premium portable
-              restroom service for winery events, vineyard weddings, art gallery
+              restroom service for winery events, vineyard gatherings, art gallery
               openings, and private celebrations throughout Los Olivos.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -108,7 +108,7 @@ export default function LosOlivosPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -120,7 +120,7 @@ export default function LosOlivosPage() {
                 <CheckCircle className="w-4 h-4 text-green-400" /> Winery Events
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-green-400" /> Vineyard Weddings
+                <CheckCircle className="w-4 h-4 text-green-400" /> Vineyard Events
               </span>
               <span className="flex items-center gap-1.5">
                 <CheckCircle className="w-4 h-4 text-green-400" /> Same-Day Service
@@ -138,7 +138,7 @@ export default function LosOlivosPage() {
               Services Available in Los Olivos
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              From intimate winery gatherings to large vineyard weddings and
+              From intimate winery gatherings to large vineyard events and
               everything in between, we provide portable sanitation solutions
               tailored to the Los Olivos experience.
             </p>
@@ -234,21 +234,21 @@ export default function LosOlivosPage() {
                 an essential part of every outdoor gathering.
               </p>
               <p className="text-slate-600 mb-4">
-                Los Olivos is also one of the most sought-after wedding destinations
-                in the Santa Ynez Valley. Couples choose vineyard estates and
-                private ranches for their ceremonies, and our{" "}
+                Los Olivos is also one of the most popular destinations for private
+                events in the Santa Ynez Valley. Guests flock to vineyard estates
+                and private ranches for celebrations, and our{" "}
                 <Link
-                  href="/services/wedding-restroom-rentals"
+                  href="/services/event-portable-restroom-rentals"
                   className="text-[#247DA9] hover:underline font-medium"
                 >
-                  wedding restroom rentals
+                  event portable restrooms
                 </Link>{" "}
                 provide the clean, comfortable facilities your guests expect. We
-                work with wedding planners throughout the valley to ensure seamless
+                work with event planners throughout the valley to ensure seamless
                 delivery, setup, and removal.
               </p>
               <p className="text-slate-600 mb-4">
-                Beyond wine and weddings, Los Olivos hosts art gallery openings,
+                Beyond wine country events, Los Olivos hosts art gallery openings,
                 the Los Olivos Day in the Country celebration, the Los Olivos Jazz
                 and Olive Festival, and seasonal markets that all benefit from
                 professional portable sanitation. We also serve construction and
@@ -268,7 +268,7 @@ export default function LosOlivosPage() {
                 Get a Free Quote for Los Olivos
               </h2>
               <p className="text-lg text-slate-600 mb-6">
-                Planning a winery event, vineyard wedding, or community celebration
+                Planning a winery event, private party, or community celebration
                 in Los Olivos? Tell us what you need and we will provide a fast,
                 no-obligation quote.
               </p>
@@ -354,7 +354,7 @@ export default function LosOlivosPage() {
             Your Los Olivos Portable Restroom Provider
           </h2>
           <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-            From vineyard weddings to winery harvest events, Mission Sanitation
+            From vineyard gatherings to winery harvest events, Mission Sanitation
             provides clean, premium portable restrooms that meet the high
             standards of Los Olivos wine country.
           </p>
@@ -372,7 +372,7 @@ export default function LosOlivosPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}

@@ -25,7 +25,7 @@ import { LeadForm } from "@/components/shared/LeadForm"
 export const metadata: Metadata = {
   title: "ADA Portable Restrooms in Santa Ynez Valley",
   description:
-    "ADA-compliant wheelchair-accessible portable restroom rentals in Solvang, Santa Ynez, Buellton & Los Olivos. Fully accessible units for events, construction & weddings. Call (805) 688-8999.",
+    "ADA-compliant wheelchair-accessible portable restroom rentals in Solvang, Santa Ynez, Buellton & Los Olivos. Fully accessible units for events, construction & private gatherings. Call (805) 688-8999.",
 }
 
 const FEATURES = [
@@ -82,9 +82,9 @@ const WHO_ITS_FOR = [
   },
   {
     icon: Heart,
-    title: "Weddings & Private Events",
+    title: "Private Events",
     description:
-      "Ensure every guest feels welcome. ADA units are essential for inclusive celebrations at vineyard estates and outdoor venues.",
+      "Ensure every guest feels welcome. ADA units are essential for inclusive gatherings at vineyard estates and outdoor venues.",
   },
   {
     icon: Users,
@@ -154,7 +154,7 @@ export default function AdaPortableRestroomsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/california-hills.jpg" alt="Green California hills" fill className="object-cover" priority />
+          <Image src="/images/california-hills.jpg" alt="Green California hills" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 lg:py-32">
@@ -185,7 +185,7 @@ export default function AdaPortableRestroomsPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                  className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   {SITE.phone}
@@ -369,7 +369,7 @@ export default function AdaPortableRestroomsPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                    className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Call {SITE.phone}

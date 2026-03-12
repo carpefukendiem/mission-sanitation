@@ -32,12 +32,6 @@ export const SERVICES = [
     icon: "HardHat" as const,
   },
   {
-    title: "Wedding Restroom Rentals",
-    href: "/services/wedding-restroom-rentals",
-    description: "Upscale, clean restroom trailers perfect for vineyard and estate weddings.",
-    icon: "Heart" as const,
-  },
-  {
     title: "ADA Portable Restrooms",
     href: "/services/ada-portable-restrooms",
     description: "Wheelchair-accessible units compliant with ADA requirements.",
@@ -87,7 +81,7 @@ export const SERVICE_AREAS = [
   {
     name: "Los Olivos",
     href: "/service-areas/los-olivos",
-    description: "Premium portable sanitation for Los Olivos wineries, weddings, and events.",
+    description: "Premium portable sanitation for Los Olivos wineries and events.",
   },
 ] as const
 

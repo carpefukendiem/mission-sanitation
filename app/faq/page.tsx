@@ -82,7 +82,7 @@ export default function FAQPage() {
       {/* Header */}
       <section className="relative overflow-hidden text-white py-16 md:py-20">
         <div className="absolute inset-0">
-          <Image src="/images/california-hills.jpg" alt="California landscape" fill className="object-cover" priority />
+          <Image src="/images/california-hills.jpg" alt="California landscape" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">

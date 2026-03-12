@@ -1,13 +1,13 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Phone, ArrowRight, CheckCircle, Star, Truck, Shield, Clock, Building2, PartyPopper, Heart, HardHat, Accessibility, Droplets, HandMetal, Sparkles, MapPin } from "lucide-react"
+import { Phone, ArrowRight, CheckCircle, Star, Truck, Shield, Clock, Building2, PartyPopper, HardHat, Accessibility, Droplets, HandMetal, Sparkles, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { SITE, SERVICES, SERVICE_AREAS } from "@/lib/constants"
 import { LeadForm } from "@/components/shared/LeadForm"
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  Building2, PartyPopper, HardHat, Heart, Accessibility, Droplets, HandMetal, Sparkles,
+  Building2, PartyPopper, HardHat, Accessibility, Droplets, HandMetal, Sparkles,
 }
 
 const WHY_US = [
@@ -36,8 +36,8 @@ const WHY_US = [
 const REVIEWS = [
   {
     name: "Sarah M.",
-    location: "Solvang Wedding",
-    text: "Mission Sanitation made our vineyard wedding perfect. The units were incredibly clean and the delivery was right on time. Our guests were impressed!",
+    location: "Solvang Event",
+    text: "Mission Sanitation made our outdoor event perfect. The units were incredibly clean and the delivery was right on time. Our guests were impressed!",
     rating: 5,
   },
   {
@@ -61,9 +61,10 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/vineyard-landscape.jpg"
-            alt="Santa Ynez Valley vineyard landscape"
+            src="/images/job-site.jpg"
+            alt="Portable restroom delivery on a job site"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -82,7 +83,7 @@ export default function HomePage() {
                 for Every Occasion
               </h1>
               <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-lg">
-                From vineyard weddings to construction sites, Mission Sanitation delivers spotless portable restrooms throughout Solvang, Santa Ynez, Buellton, and Los Olivos.
+                From outdoor events to construction sites, Mission Sanitation delivers spotless portable restrooms throughout Solvang, Santa Ynez, Buellton, and Los Olivos.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link href="/request-a-quote">
@@ -92,7 +93,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <a href={SITE.phoneHref}>
-                  <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer">
+                  <Button size="lg" variant="outline" className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer">
                     <Phone className="w-5 h-5 mr-2" />
                     {SITE.phone}
                   </Button>
@@ -156,20 +157,20 @@ export default function HomePage() {
               Trusted Across the Santa Ynez Valley
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              From elegant vineyard weddings to rugged construction sites, we deliver clean, reliable portable restrooms for every occasion.
+              From community festivals to construction sites, we deliver clean, reliable portable restrooms for every occasion.
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="relative rounded-2xl overflow-hidden group h-72">
-              <Image src="/images/outdoor-wedding.jpg" alt="Outdoor vineyard wedding in Santa Ynez Valley" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <Image src="/images/outdoor-event.jpg" alt="Outdoor event in Santa Ynez Valley" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-white font-bold text-xl mb-1">Weddings &amp; Events</h3>
-                <p className="text-white/80 text-sm">Premium clean units for your special day</p>
+                <h3 className="text-white font-bold text-xl mb-1">Events &amp; Festivals</h3>
+                <p className="text-white/80 text-sm">Premium clean units for any gathering</p>
               </div>
             </div>
             <div className="relative rounded-2xl overflow-hidden group h-72">
-              <Image src="/images/construction-site.jpg" alt="Active construction site" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <Image src="/images/construction-site.jpg" alt="Active construction site" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-white font-bold text-xl mb-1">Construction Sites</h3>
@@ -177,7 +178,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative rounded-2xl overflow-hidden group h-72">
-              <Image src="/images/outdoor-event.jpg" alt="Outdoor community event" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <Image src="/images/outdoor-event.jpg" alt="Outdoor community event" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-white font-bold text-xl mb-1">Festivals &amp; Gatherings</h3>
@@ -280,7 +281,7 @@ export default function HomePage() {
               </p>
             </div>
             <div className="relative rounded-2xl overflow-hidden h-64 lg:h-80">
-              <Image src="/images/wine-country.jpg" alt="Santa Ynez Valley wine country landscape" fill className="object-cover" />
+              <Image src="/images/wine-country.jpg" alt="Santa Ynez Valley wine country landscape" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#247DA9]/40 to-transparent" />
             </div>
           </div>
@@ -309,7 +310,7 @@ export default function HomePage() {
       {/* Bottom CTA */}
       <section className="py-16 md:py-24 text-white relative">
         <div className="absolute inset-0">
-          <Image src="/images/ranch-landscape.jpg" alt="California ranch landscape" fill className="object-cover" />
+          <Image src="/images/ranch-landscape.jpg" alt="California ranch landscape" fill sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-br from-[#247DA9]/90 to-[#1a5f82]/90" />
         </div>
         <div className="relative max-w-4xl mx-auto px-4 text-center">
@@ -317,7 +318,7 @@ export default function HomePage() {
             Ready to Get Started?
           </h2>
           <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-            Whether it&apos;s a weekend wedding, a month-long construction project, or a community festival &mdash; we&apos;ve got you covered. Get your free quote in minutes.
+            Whether it&apos;s a weekend event, a month-long construction project, or a community festival &mdash; we&apos;ve got you covered. Get your free quote in minutes.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/request-a-quote">
@@ -327,7 +328,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <a href={SITE.phoneHref}>
-              <Button size="lg" variant="outline" className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
+              <Button size="lg" variant="outline" className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer">
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}
               </Button>

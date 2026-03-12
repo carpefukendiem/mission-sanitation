@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "portable-restroom-rentals",
     "event-portable-restroom-rentals",
     "construction-portable-toilets",
-    "wedding-restroom-rentals",
     "ada-portable-restrooms",
     "portable-restrooms-with-sinks",
     "handwashing-stations",

@@ -116,7 +116,7 @@ export default function EventPortableRestroomRentalsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src="/images/outdoor-event.jpg" alt="Outdoor festival event" fill className="object-cover" priority />
+          <Image src="/images/outdoor-event.jpg" alt="Outdoor festival event" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
@@ -152,7 +152,7 @@ export default function EventPortableRestroomRentalsPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                    className="bg-transparent border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     {SITE.phone}
@@ -248,15 +248,7 @@ export default function EventPortableRestroomRentalsPage() {
               >
                 Los Olivos
               </Link>{" "}
-              to ensure every gathering has the sanitation coverage it needs. For
-              upscale events like vineyard weddings, check out our dedicated{" "}
-              <Link
-                href="/services/wedding-restroom-rentals"
-                className="text-[#247DA9] underline hover:no-underline"
-              >
-                wedding restroom rental
-              </Link>{" "}
-              service.
+              to ensure every gathering has the sanitation coverage it needs.
             </p>
           </div>
         </div>
@@ -423,9 +415,9 @@ export default function EventPortableRestroomRentalsPage() {
                 desc: "Our full range of standard, deluxe, and specialty portable restrooms for any occasion.",
               },
               {
-                title: "Wedding Restroom Rentals",
-                href: "/services/wedding-restroom-rentals",
-                desc: "Upscale restroom trailers designed for vineyard and estate weddings.",
+                title: "ADA Portable Restrooms",
+                href: "/services/ada-portable-restrooms",
+                desc: "Wheelchair-accessible restroom units that meet ADA requirements for inclusive events.",
               },
               {
                 title: "Handwashing Stations",
@@ -507,7 +499,7 @@ export default function EventPortableRestroomRentalsPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+                className="bg-transparent border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
               >
                 <Phone className="w-5 h-5 mr-2" />
                 Call {SITE.phone}
