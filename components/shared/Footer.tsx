@@ -42,14 +42,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Company info */}
           <div>
-            <div className="mb-4">
-              <Image
-                src="/images/logo.webp"
-                alt="Mission Sanitation"
-                width={200}
-                height={55}
-                className="h-11 w-auto brightness-0 invert"
-              />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-[#247DA9] rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">MS</span>
+              </div>
+              <div>
+                <div className="font-bold text-white text-lg">Mission Sanitation</div>
+                <div className="text-xs text-slate-400">Portable Restroom Rentals</div>
+              </div>
             </div>
             <p className="text-sm text-slate-400 mb-4">
               The Santa Ynez Valley&apos;s trusted portable restroom provider. Clean units, reliable service, and fast delivery for events, construction, and more.

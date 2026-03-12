@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { Phone, Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SITE, NAV_LINKS } from "@/lib/constants"
@@ -29,15 +28,14 @@ export function Header() {
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="shrink-0">
-            <Image
-              src="/images/logo.webp"
-              alt="Mission Sanitation - Portable Restroom Rentals"
-              width={220}
-              height={60}
-              className="h-10 lg:h-12 w-auto"
-              priority
-            />
+          <Link href="/" className="flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 lg:w-12 lg:h-12 bg-[#247DA9] rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg lg:text-xl">MS</span>
+            </div>
+            <div className="hidden sm:block">
+              <div className="font-bold text-lg lg:text-xl text-slate-900 leading-tight">Mission Sanitation</div>
+              <div className="text-xs text-slate-500 leading-tight">Portable Restroom Rentals</div>
+            </div>
           </Link>
 
           {/* Desktop nav */}
