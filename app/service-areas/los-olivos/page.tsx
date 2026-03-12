@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import {
   MapPin,
@@ -71,16 +72,10 @@ export default function LosOlivosPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-[#1a5f82] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)",
-              backgroundSize: "40px 40px",
-            }}
-          />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src="/images/wine-country.jpg" alt="Los Olivos wine country" fill className="object-cover" priority />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl">

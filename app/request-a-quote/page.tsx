@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { Phone, CheckCircle, Clock, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -23,8 +24,12 @@ export default function RequestAQuotePage() {
   return (
     <>
       {/* Header */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-[#1a5f82] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <section className="relative overflow-hidden text-white py-16 md:py-20">
+        <div className="absolute inset-0">
+          <Image src="/images/ranch-landscape.jpg" alt="Santa Ynez Valley" fill className="object-cover" priority />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Request a Free Quote
           </h1>

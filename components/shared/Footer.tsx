@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Phone, Mail, MapPin } from "lucide-react"
 import { SITE, SERVICES, SERVICE_AREAS } from "@/lib/constants"
 
@@ -6,8 +7,12 @@ export function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-300">
       {/* CTA banner */}
-      <div className="bg-[#247DA9]">
-        <div className="max-w-7xl mx-auto px-4 py-10 text-center">
+      <div className="relative">
+        <div className="absolute inset-0">
+          <Image src="/images/vineyard-landscape.jpg" alt="Santa Ynez Valley" fill className="object-cover" />
+          <div className="absolute inset-0 bg-[#247DA9]/85" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 py-10 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
             Need Portable Restrooms? Get a Free Quote Today
           </h2>

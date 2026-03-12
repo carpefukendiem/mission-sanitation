@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Phone, ArrowRight, CheckCircle, Star, Truck, Shield, Clock, Building2, PartyPopper, Heart, HardHat, Accessibility, Droplets, HandMetal, Sparkles, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -57,9 +58,16 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-[#1a5f82] overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)", backgroundSize: "40px 40px" }} />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/vineyard-landscape.jpg"
+            alt="Santa Ynez Valley vineyard landscape"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -140,8 +148,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Image showcase */}
       <section className="py-16 md:py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Trusted Across the Santa Ynez Valley
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              From elegant vineyard weddings to rugged construction sites, we deliver clean, reliable portable restrooms for every occasion.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="relative rounded-2xl overflow-hidden group h-72">
+              <Image src="/images/outdoor-wedding.jpg" alt="Outdoor vineyard wedding in Santa Ynez Valley" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <h3 className="text-white font-bold text-xl mb-1">Weddings &amp; Events</h3>
+                <p className="text-white/80 text-sm">Premium clean units for your special day</p>
+              </div>
+            </div>
+            <div className="relative rounded-2xl overflow-hidden group h-72">
+              <Image src="/images/construction-site.jpg" alt="Active construction site" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <h3 className="text-white font-bold text-xl mb-1">Construction Sites</h3>
+                <p className="text-white/80 text-sm">OSHA-compliant units with weekly service</p>
+              </div>
+            </div>
+            <div className="relative rounded-2xl overflow-hidden group h-72">
+              <Image src="/images/outdoor-event.jpg" alt="Outdoor community event" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <h3 className="text-white font-bold text-xl mb-1">Festivals &amp; Gatherings</h3>
+                <p className="text-white/80 text-sm">Reliable service for events of all sizes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -220,15 +268,21 @@ export default function HomePage() {
       </section>
 
       {/* Service areas */}
-      <section className="py-16 md:py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-slate-50 relative">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Serving the Entire Santa Ynez Valley
-            </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Based in Solvang, we provide fast delivery and reliable service throughout the valley.
-            </p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Serving the Entire Santa Ynez Valley
+              </h2>
+              <p className="text-lg text-slate-600">
+                Based in Solvang, we provide fast delivery and reliable service throughout the valley. Our trucks are on the road daily, ensuring prompt delivery and pickup no matter where you are.
+              </p>
+            </div>
+            <div className="relative rounded-2xl overflow-hidden h-64 lg:h-80">
+              <Image src="/images/wine-country.jpg" alt="Santa Ynez Valley wine country landscape" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#247DA9]/40 to-transparent" />
+            </div>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {SERVICE_AREAS.map((area) => (
@@ -253,8 +307,12 @@ export default function HomePage() {
       </section>
 
       {/* Bottom CTA */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-[#247DA9] to-[#1a5f82] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="py-16 md:py-24 text-white relative">
+        <div className="absolute inset-0">
+          <Image src="/images/ranch-landscape.jpg" alt="California ranch landscape" fill className="object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#247DA9]/90 to-[#1a5f82]/90" />
+        </div>
+        <div className="relative max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Get Started?
           </h2>

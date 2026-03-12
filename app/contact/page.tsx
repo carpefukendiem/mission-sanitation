@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -49,8 +50,12 @@ export default function ContactPage() {
   return (
     <>
       {/* Header */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-[#1a5f82] text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
+      <section className="relative overflow-hidden text-white py-16 md:py-20">
+        <div className="absolute inset-0">
+          <Image src="/images/solvang-town.jpg" alt="Solvang California" fill className="object-cover" priority />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/85 to-[#1a5f82]/80" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-lg text-blue-100 max-w-2xl mx-auto">
             Have a question or need help planning your portable restroom rental? We&apos;re here to help.
