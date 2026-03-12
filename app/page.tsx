@@ -61,8 +61,8 @@ export default function HomePage() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/job-site.jpg"
-            alt="Portable restroom delivery on a job site"
+            src="/images/hero-construction.jpg"
+            alt="Construction site with portable restroom services"
             fill
             sizes="100vw"
             className="object-cover"
