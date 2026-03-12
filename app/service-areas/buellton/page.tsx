@@ -1,0 +1,385 @@
+import type { Metadata } from "next"
+import Link from "next/link"
+import {
+  MapPin,
+  Phone,
+  ArrowRight,
+  CheckCircle,
+  Building2,
+  PartyPopper,
+  HardHat,
+  Heart,
+  Accessibility,
+  Droplets,
+  HandMetal,
+  Sparkles,
+  Truck,
+  Shield,
+  Clock,
+  Factory,
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { SITE, SERVICES, SERVICE_AREAS } from "@/lib/constants"
+import { LeadForm } from "@/components/shared/LeadForm"
+
+export const metadata: Metadata = {
+  title: "Buellton Portable Restroom Rentals",
+  description:
+    "Portable restroom rentals in Buellton, CA. Events, construction, breweries & festivals. Clean units, fast delivery from Solvang. Call Mission Sanitation at (805) 688-8999.",
+}
+
+const ICON_MAP: Record<string, React.ElementType> = {
+  Building2,
+  PartyPopper,
+  HardHat,
+  Heart,
+  Accessibility,
+  Droplets,
+  HandMetal,
+  Sparkles,
+}
+
+const LOCAL_BENEFITS = [
+  {
+    icon: Truck,
+    title: "Quick Highway 101 Access",
+    desc: "Buellton sits right on Highway 101, and our Solvang base is just minutes away. We deliver fast along the corridor.",
+  },
+  {
+    icon: Factory,
+    title: "Commercial & Industrial Ready",
+    desc: "We serve Buellton's growing commercial district, industrial parks, and construction sites with durable, regularly serviced units.",
+  },
+  {
+    icon: Shield,
+    title: "Event Specialists",
+    desc: "From the Buellton Brew Fest to private parties at local breweries and restaurants, we have experience with events of every size.",
+  },
+  {
+    icon: Clock,
+    title: "Same-Day Delivery",
+    desc: "Our proximity to Buellton means we can often accommodate same-day requests for urgent event or job site needs.",
+  },
+]
+
+export default function BuelltonPage() {
+  const otherAreas = SERVICE_AREAS.filter(
+    (a) => a.href !== "/service-areas/buellton"
+  )
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-[#1a5f82] overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)",
+              backgroundSize: "40px 40px",
+            }}
+          />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
+              <MapPin className="w-4 h-4 text-blue-300" />
+              <span className="text-sm text-blue-100">Buellton, CA</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              Portable Restroom Rentals in{" "}
+              <span className="text-[#3a9fd4]">Buellton</span>
+            </h1>
+            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl">
+              Buellton is the gateway to the Santa Ynez Valley and a hub for
+              breweries, restaurants, and growing commercial development. Mission
+              Sanitation keeps Buellton events clean and job sites compliant with
+              reliable portable restroom delivery just minutes from our Solvang
+              headquarters.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <Link href="/request-a-quote">
+                <Button
+                  size="lg"
+                  className="bg-[#247DA9] hover:bg-[#1a5f82] text-white h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                >
+                  Get a Free Quote
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <a href={SITE.phoneHref}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white/30 text-white hover:bg-white/10 h-14 px-8 text-lg w-full sm:w-auto cursor-pointer"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  {SITE.phone}
+                </Button>
+              </a>
+            </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-green-400" /> Fast Delivery
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-green-400" /> Construction Ready
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle className="w-4 h-4 text-green-400" /> Event Specialists
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Available */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Services Available in Buellton
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              From brewery festivals and community events to Highway 101
+              construction projects, we provide a full range of portable sanitation
+              services in Buellton.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SERVICES.map((service) => {
+              const Icon = ICON_MAP[service.icon] || Building2
+              return (
+                <Link key={service.href} href={service.href} className="group">
+                  <Card className="h-full border-0 shadow-md group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-200">
+                    <CardContent className="p-6">
+                      <div className="w-12 h-12 bg-[#247DA9]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#247DA9] transition-colors">
+                        <Icon className="w-6 h-6 text-[#247DA9] group-hover:text-white transition-colors" />
+                      </div>
+                      <h3 className="font-semibold text-lg text-slate-900 mb-2 group-hover:text-[#247DA9] transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-3">
+                        {service.description}
+                      </p>
+                      <span className="text-sm font-medium text-[#247DA9] flex items-center gap-1">
+                        Learn more <ArrowRight className="w-4 h-4" />
+                      </span>
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Local Benefits */}
+      <section className="py-16 md:py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Why Choose Mission Sanitation in Buellton
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Buellton&apos;s mix of commercial growth, craft beverage culture, and
+              community events demands a portable sanitation provider that can do it
+              all. That&apos;s us.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {LOCAL_BENEFITS.map((item) => (
+              <Card
+                key={item.title}
+                className="border-0 shadow-md hover:shadow-lg transition-shadow"
+              >
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-[#247DA9]/10 rounded-xl flex items-center justify-center mb-4">
+                    <item.icon className="w-6 h-6 text-[#247DA9]" />
+                  </div>
+                  <h3 className="font-semibold text-lg text-slate-900 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-600">{item.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Local Context */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-slate-900 mb-6">
+              Portable Restrooms for Buellton Events and Job Sites
+            </h2>
+            <div className="prose prose-slate prose-lg max-w-none">
+              <p className="text-slate-600 mb-4">
+                Buellton has transformed from a quiet highway stop into a vibrant
+                destination known for its craft breweries, taprooms, and farm-to-table
+                dining along the Avenue of Flags and Industrial Way. Venues like
+                Figueroa Mountain Brewing, Industrial Eats, and the Buellton
+                Recreation Center host events that draw visitors from across the
+                Central Coast.
+              </p>
+              <p className="text-slate-600 mb-4">
+                The town also sees significant commercial and residential
+                construction, with new developments and infrastructure projects along
+                the Highway 101 and Highway 246 corridors. Our{" "}
+                <Link
+                  href="/services/construction-portable-toilets"
+                  className="text-[#247DA9] hover:underline font-medium"
+                >
+                  construction portable toilets
+                </Link>{" "}
+                keep work crews comfortable and your job site OSHA-compliant with
+                regular servicing schedules.
+              </p>
+              <p className="text-slate-600 mb-4">
+                Community events, school fundraisers, sports tournaments at River
+                View Park, and seasonal celebrations all rely on clean portable
+                restrooms. We also serve agricultural operations during harvest
+                season, when field workers need access to properly maintained
+                sanitation facilities. Our{" "}
+                <Link
+                  href="/services/handwashing-stations"
+                  className="text-[#247DA9] hover:underline font-medium"
+                >
+                  handwashing stations
+                </Link>{" "}
+                are especially popular for food-related events and agricultural use.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lead Form */}
+      <section className="py-16 md:py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Get a Free Quote for Buellton
+              </h2>
+              <p className="text-lg text-slate-600 mb-6">
+                Whether you need portable restrooms for a brewery event, a
+                construction project, or a community gathering in Buellton, we have
+                you covered.
+              </p>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-[#247DA9] mt-0.5 shrink-0" />
+                  <p className="text-slate-700">
+                    Free delivery and pickup throughout Buellton
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-[#247DA9] mt-0.5 shrink-0" />
+                  <p className="text-slate-700">
+                    Construction-grade units with regular servicing
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-[#247DA9] mt-0.5 shrink-0" />
+                  <p className="text-slate-700">
+                    Handwashing stations for food service and agriculture
+                  </p>
+                </div>
+              </div>
+              <a
+                href={SITE.phoneHref}
+                className="inline-flex items-center gap-2 text-[#247DA9] font-semibold text-lg hover:underline"
+              >
+                <Phone className="w-5 h-5" />
+                Call us: {SITE.phone}
+              </a>
+            </div>
+            <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+              <h3 className="text-xl font-bold text-slate-900 mb-1">
+                Request Your Quote
+              </h3>
+              <p className="text-sm text-slate-500 mb-6">
+                We respond within hours during business days.
+              </p>
+              <LeadForm source="buellton-page" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Other Service Areas */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Other Areas We Serve
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              In addition to Buellton, we deliver portable restrooms to every
+              community in the Santa Ynez Valley.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {otherAreas.map((area) => (
+              <Link key={area.href} href={area.href} className="group">
+                <Card className="h-full border-0 shadow-md group-hover:shadow-xl group-hover:-translate-y-1 transition-all duration-200">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#247DA9]/10 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-[#247DA9] transition-colors">
+                      <MapPin className="w-5 h-5 text-[#247DA9] group-hover:text-white transition-colors" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-slate-900 mb-1 group-hover:text-[#247DA9] transition-colors">
+                        {area.name}
+                      </h3>
+                      <p className="text-sm text-slate-600">{area.description}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-[#247DA9] to-[#1a5f82] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Need Portable Restrooms in Buellton?
+          </h2>
+          <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
+            From craft brewery events to commercial construction along Highway 101,
+            Mission Sanitation delivers clean, dependable portable restrooms
+            throughout Buellton.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/request-a-quote">
+              <Button
+                size="lg"
+                className="bg-white text-[#247DA9] hover:bg-blue-50 h-14 px-10 text-lg font-semibold w-full sm:w-auto cursor-pointer"
+              >
+                Request a Free Quote
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <a href={SITE.phoneHref}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/40 text-white hover:bg-white/10 h-14 px-10 text-lg w-full sm:w-auto cursor-pointer"
+              >
+                <Phone className="w-5 h-5 mr-2" />
+                Call {SITE.phone}
+              </Button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
