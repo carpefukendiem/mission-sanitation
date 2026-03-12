@@ -40,9 +40,17 @@ export function LeadForm({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    const data = Object.fromEntries(new FormData(e.currentTarget))
-    ;(data as Record<string, string>).source = source
-    ;(data as Record<string, string>)._t = mountTime ? String(mountTime) : ""
+    const formData = new FormData(e.currentTarget)
+    const data: Record<string, string> = {}
+    formData.forEach((value, key) => {
+      if (key === "serviceType") {
+        data[key] = data[key] ? `${data[key]}, ${value}` : String(value)
+      } else {
+        data[key] = String(value)
+      }
+    })
+    data.source = source
+    data._t = mountTime ? String(mountTime) : ""
 
     try {
       await fetch("/api/contact", {
@@ -92,18 +100,24 @@ export function LeadForm({
 
       {showServiceType && (
         <div>
-          <label className="text-sm font-medium text-slate-700 mb-1 block">Service Type *</label>
-          <select name="serviceType" className={selectClasses} required defaultValue="">
-            <option value="" disabled>Select a service</option>
-            <option value="portable-restroom-rental">Portable Restroom Rental</option>
-            <option value="event-restroom-rental">Event Portable Restroom Rental</option>
-            <option value="construction-restroom-rental">Construction Portable Toilets</option>
-            <option value="ada-restroom-rental">ADA Portable Restrooms</option>
-            <option value="restrooms-with-sinks">Portable Restrooms with Sinks</option>
-            <option value="handwashing-stations">Handwashing Stations</option>
-            <option value="service-request">Existing Customer Service Request</option>
-            <option value="other">Other</option>
-          </select>
+          <label className="text-sm font-medium text-slate-700 mb-2 block">Service Type * <span className="text-xs font-normal text-slate-400">(select all that apply)</span></label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {[
+              { value: "portable-restroom-rental", label: "Portable Restroom Rental" },
+              { value: "event-restroom-rental", label: "Event Portable Restrooms" },
+              { value: "construction-restroom-rental", label: "Construction Portable Toilets" },
+              { value: "ada-restroom-rental", label: "ADA Portable Restrooms" },
+              { value: "restrooms-with-sinks", label: "Restrooms with Sinks" },
+              { value: "handwashing-stations", label: "Handwashing Stations" },
+              { value: "service-request", label: "Existing Customer Service" },
+              { value: "other", label: "Other" },
+            ].map((opt) => (
+              <label key={opt.value} className="flex items-center gap-2 px-3 py-2.5 border border-input rounded-md bg-white hover:bg-slate-50 cursor-pointer text-sm transition-colors has-[:checked]:border-[#247DA9] has-[:checked]:bg-[#247DA9]/5">
+                <input type="checkbox" name="serviceType" value={opt.value} className="accent-[#247DA9] w-4 h-4 shrink-0" />
+                <span className="text-slate-700">{opt.label}</span>
+              </label>
+            ))}
+          </div>
         </div>
       )}
 
@@ -169,34 +183,6 @@ export function LeadForm({
         </div>
       )}
 
-      <div>
-        <label className="text-sm font-medium text-slate-700 mb-1 block">Need Handwashing Stations?</label>
-        <select name="handwashNeeded" className={selectClasses} defaultValue="">
-          <option value="">Select an option</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="not-sure">Not Sure</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium text-slate-700 mb-1 block">Need an ADA Unit?</label>
-        <select name="adaNeeded" className={selectClasses} defaultValue="">
-          <option value="">Select an option</option>
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="not-sure">Not Sure</option>
-        </select>
-      </div>
-
-      <div>
-        <label className="text-sm font-medium text-slate-700 mb-1 block">Existing Customer?</label>
-        <select name="existingCustomer" className={selectClasses} defaultValue="">
-          <option value="">Select an option</option>
-          <option value="no">No</option>
-          <option value="yes">Yes</option>
-        </select>
-      </div>
 
       {showMessage && (
         <div>
