@@ -4,12 +4,12 @@ export const SITE = {
   phone: "(805) 688-8999",
   phoneHref: "tel:+18056888999",
   email: "info@missionsanitation.net",
-  address: "484 4th Place, Solvang, CA 93463",
+  address: "1180B Mission Drive, Solvang, CA 93463",
   city: "Solvang",
   state: "CA",
   zip: "93463",
   domain: "https://missionsanitation.net",
-  googleMapsUrl: "https://maps.google.com/?q=484+4th+Place+Solvang+CA+93463",
+  googleMapsUrl: "https://maps.google.com/?q=1180B+Mission+Drive+Solvang+CA+93463",
 } as const
 
 export const SERVICES = [

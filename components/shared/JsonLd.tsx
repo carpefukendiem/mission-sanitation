@@ -12,7 +12,7 @@ export function LocalBusinessJsonLd() {
     email: SITE.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "484 4th Place",
+      streetAddress: "1180B Mission Drive",
       addressLocality: "Solvang",
       addressRegion: "CA",
       postalCode: "93463",
@@ -77,7 +77,7 @@ export function ServiceJsonLd({
       telephone: "+18056888999",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "484 4th Place",
+        streetAddress: "1180B Mission Drive",
         addressLocality: "Solvang",
         addressRegion: "CA",
         postalCode: "93463",

@@ -27,6 +27,158 @@ const SPAM_COMPANY_PATTERNS = [
 
 const MIN_FILL_MS = 4000
 
+const MIN_MESSAGE_LEN = 8
+const MAX_MESSAGE_LEN = 2000
+const MAX_NAME_LEN = 120
+const MAX_COMPANY_LEN = 120
+const MAX_FIELD_LEN = 250
+
+const RATE_WINDOW_MS = 60 * 60 * 1000 // 1 hour
+const IP_RATE_LIMIT = 12
+const EMAIL_RATE_LIMIT = 6
+const PHONE_RATE_LIMIT = 6
+
+const SMS_DESTINATION_FALLBACK = "+18058864786"
+
+const SPAM_MESSAGE_PATTERNS: RegExp[] = [
+  /viagra|cialis|levitra/i,
+  /crypto|bitcoin|investment|roi|free\s+money/i,
+  /mortgage|loan|work\s*from\s*home|wfh/i,
+  /click\s*here|get\s+your\s+free|winner|prize/i,
+  /remotetact|intellagency|flowchat/i,
+]
+
+function cleanText(input: string, maxLen: number): string {
+  return String(input || "")
+    .replace(/[\u0000-\u001F\u007F]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLen)
+}
+
+function isValidEmail(rawEmail: string): boolean {
+  const email = rawEmail.trim().toLowerCase()
+  if (!email) return false
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function normalizePhone(rawPhone: string): string {
+  // Keep + for E.164, remove other characters.
+  const cleaned = String(rawPhone || "").replace(/[^\d+]/g, "")
+  return cleaned
+}
+
+function isValidPhone(rawPhone: string): boolean {
+  const phone = normalizePhone(rawPhone)
+  const digits = phone.replace(/\D/g, "")
+  // US local/intl variations; keep it conservative.
+  return digits.length >= 10 && digits.length <= 15
+}
+
+function getClientIp(req: NextApiRequest): string {
+  const xff = req.headers["x-forwarded-for"]
+  if (typeof xff === "string" && xff.trim()) return xff.split(",")[0]!.trim()
+  if (Array.isArray(xff) && xff[0]) return String(xff[0])
+  return req.socket?.remoteAddress || "unknown"
+}
+
+function isSuspiciousMessage(rawMessage: string): boolean {
+  const msg = String(rawMessage || "").trim()
+  // Some forms don't include a message field. In that case, allow empty content.
+  if (!msg) return false
+  if (msg.length < MIN_MESSAGE_LEN) return true
+  if (msg.length > MAX_MESSAGE_LEN) return true
+
+  const linkCount = (msg.match(/https?:\/\//gi) || []).length + (msg.match(/www\./gi) || []).length
+  if (linkCount > 0) return true
+
+  if (SPAM_MESSAGE_PATTERNS.some((p) => p.test(msg))) return true
+
+  // Excessive repeated characters is typical of form spam.
+  if (/(.)\1{9,}/.test(msg)) return true
+
+  return false
+}
+
+type RateState = { timestamps: number[] }
+
+function getRateMaps() {
+  const g = globalThis as unknown as { __contactRate?: Record<string, Map<string, RateState>> }
+  if (!g.__contactRate) {
+    g.__contactRate = {
+      ip: new Map(),
+      email: new Map(),
+      phone: new Map(),
+    }
+  }
+  return g.__contactRate
+}
+
+function isRateLimited(map: Map<string, RateState>, key: string, limit: number): boolean {
+  if (!key) return false
+  const now = Date.now()
+  const state = map.get(key) || { timestamps: [] }
+  state.timestamps = state.timestamps.filter((t) => now - t <= RATE_WINDOW_MS)
+  state.timestamps.push(now)
+  map.set(key, state)
+  return state.timestamps.length > limit
+}
+
+function buildSmsBody(note: string): string {
+  // Twilio has a practical limit; keep it compact and single-purpose.
+  const compact = note.replace(/\s+\n/g, "\n").replace(/\n+/g, "\n").slice(0, 1300)
+  return compact
+}
+
+function chunkText(text: string, maxLen: number): string[] {
+  const chunks: string[] = []
+  let start = 0
+  while (start < text.length) {
+    chunks.push(text.slice(start, start + maxLen))
+    start += maxLen
+  }
+  return chunks
+}
+
+async function sendSms(body: string): Promise<{ sent: boolean; reason?: string }> {
+  const toNumber = process.env.FORWARD_SMS_TO || SMS_DESTINATION_FALLBACK
+  const accountSid = process.env.TWILIO_ACCOUNT_SID || ""
+  const authToken = process.env.TWILIO_AUTH_TOKEN || ""
+  const fromNumber = process.env.TWILIO_FROM_NUMBER || ""
+
+  if (!accountSid || !authToken || !fromNumber) {
+    return { sent: false, reason: "Missing Twilio env vars (TWILIO_ACCOUNT_SID/TWILIO_AUTH_TOKEN/TWILIO_FROM_NUMBER)" }
+  }
+
+  const chunks = chunkText(body, 1300)
+  const auth = Buffer.from(`${accountSid}:${authToken}`).toString("base64")
+
+  for (let i = 0; i < chunks.length; i++) {
+    const partBody = chunks.length > 1 ? `[Part ${i + 1}/${chunks.length}]\n${chunks[i]}` : chunks[i]!
+    const params = new URLSearchParams({
+      From: fromNumber,
+      To: toNumber,
+      Body: partBody,
+    })
+
+    const resp = await fetch(`https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${auth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params.toString(),
+    })
+
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "")
+      throw new Error(`Twilio SMS failed: ${resp.status} ${text.slice(0, 300)}`)
+    }
+  }
+
+  return { sent: true }
+}
+
 function isBot(hp: string, email: string, company: string, mountTime: string): boolean {
   if (hp) return true
   if (SPAM_EMAIL_PATTERNS.some((p) => p.test(email))) return true
@@ -128,42 +280,129 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     _t = "",
   } = (req.body || {}) as Record<string, string>
 
-  if (isBot(_hp, email, company, _t)) {
+  // Reject non-JSON payloads early (common bot behavior).
+  const contentType = String(req.headers["content-type"] || "")
+  if (!contentType.includes("application/json")) {
+    return res.status(200).json({ success: true })
+  }
+
+  const clientIp = getClientIp(req)
+  const cleanedName = cleanText(name, MAX_NAME_LEN)
+  const cleanedEmailRaw = cleanText(email, MAX_FIELD_LEN).toLowerCase()
+  const cleanedPhoneRaw = cleanText(phone, MAX_FIELD_LEN)
+  const cleanedCompany = cleanText(company, MAX_COMPANY_LEN)
+  const cleanedMessage = cleanText(message, MAX_MESSAGE_LEN)
+
+  const cleanedSource = cleanText(source, 80) || "website"
+  const cleanedServiceType = cleanText(serviceType, MAX_FIELD_LEN)
+  const cleanedRentalType = cleanText(rentalType, MAX_FIELD_LEN)
+  const cleanedServiceArea = cleanText(serviceArea, MAX_FIELD_LEN)
+  const cleanedEventDate = cleanText(eventDate, MAX_FIELD_LEN)
+  const cleanedDeliveryAddress = cleanText(deliveryAddress, MAX_FIELD_LEN)
+  const cleanedRentalDuration = cleanText(rentalDuration, MAX_FIELD_LEN)
+  const cleanedQuantityNeeded = cleanText(quantityNeeded, MAX_FIELD_LEN)
+  const cleanedHandwashNeeded = cleanText(handwashNeeded, MAX_FIELD_LEN)
+  const cleanedAdaNeeded = cleanText(adaNeeded, MAX_FIELD_LEN)
+  const cleanedExistingCustomer = cleanText(existingCustomer, MAX_FIELD_LEN)
+
+  const cleanedHp = cleanText(_hp, 50)
+  const cleanedMountTime = cleanText(_t, 30)
+
+  const finalEmail = isValidEmail(cleanedEmailRaw) ? cleanedEmailRaw : ""
+  const finalPhone = isValidPhone(cleanedPhoneRaw) ? normalizePhone(cleanedPhoneRaw) : ""
+
+  // Rate limit by IP + submitted identity so spam can't hammer the endpoint.
+  const rateMaps = getRateMaps()
+  const rateBlocked =
+    isRateLimited(rateMaps.ip, clientIp, IP_RATE_LIMIT) ||
+    isRateLimited(rateMaps.email, finalEmail, EMAIL_RATE_LIMIT) ||
+    isRateLimited(rateMaps.phone, finalPhone, PHONE_RATE_LIMIT)
+
+  if (rateBlocked) {
+    console.log(`[contact] Rate limited — ip=${clientIp}`)
+    return res.status(200).json({ success: true })
+  }
+
+  // Honeypot + heuristic bot checks.
+  if (isBot(cleanedHp, finalEmail, cleanedCompany, cleanedMountTime)) {
     console.log(
-      `[contact] Bot blocked — email=${email} hp=${!!_hp} elapsed=${_t ? Date.now() - parseInt(_t, 10) : "n/a"}ms`
+      `[contact] Bot blocked — email=${finalEmail} hp=${!!cleanedHp} elapsed=${
+        cleanedMountTime ? Date.now() - parseInt(cleanedMountTime, 10) : "n/a"
+      }ms`
     )
     return res.status(200).json({ success: true })
   }
 
-  if (!email && !phone) {
-    return res.status(400).json({ error: "Email or phone required" })
+  // Additional message-based spam detection.
+  if (isSuspiciousMessage(cleanedMessage)) {
+    console.log(`[contact] Suspicious message blocked — ip=${clientIp}`)
+    return res.status(200).json({ success: true })
   }
 
-  const [firstName, ...rest] = name.trim().split(" ")
-  const lastName = rest.join(" ") || ""
+  if (!finalEmail && !finalPhone) {
+    return res.status(200).json({ success: true })
+  }
+
+  const nameParts = cleanedName.split(" ").filter(Boolean)
+  const firstName = nameParts[0] || "Website"
+  const lastName = nameParts.slice(1).join(" ") || ""
+
+  const note = [
+    "Mission Sanitation Website Lead",
+    `Name: ${cleanedName || "—"}`,
+    `Email: ${finalEmail || "—"}`,
+    `Phone: ${finalPhone || "—"}`,
+    `Company / Organization: ${cleanedCompany || "—"}`,
+    `Source: ${cleanedSource || "—"}`,
+    `Service Type: ${cleanedServiceType || "—"}`,
+    `Rental Type: ${cleanedRentalType || "—"}`,
+    `Service Area: ${cleanedServiceArea || "—"}`,
+    `Event Date: ${cleanedEventDate || "—"}`,
+    `Delivery Address: ${cleanedDeliveryAddress || "—"}`,
+    `Rental Duration: ${cleanedRentalDuration || "—"}`,
+    `Quantity Needed: ${cleanedQuantityNeeded || "—"}`,
+    `Handwashing Stations Needed: ${cleanedHandwashNeeded || "—"}`,
+    `ADA Unit Needed: ${cleanedAdaNeeded || "—"}`,
+    `Existing Customer: ${cleanedExistingCustomer || "—"}`,
+    cleanedMessage ? `Message: ${cleanedMessage}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n")
+
+  // SMS forward (spam-filtered). Fails silently if Twilio isn't configured.
+  try {
+    await sendSms(buildSmsBody(note))
+  } catch (err) {
+    console.warn("[contact] SMS send failed:", String(err))
+  }
 
   try {
     const contactRes = await ghl("POST", "/contacts/", {
       locationId: LOCATION_ID,
       firstName,
       lastName,
-      email,
-      phone,
-      companyName: company,
-      source,
-      tags: buildLeadTags({ source, serviceType, serviceArea, rentalType }),
+      email: finalEmail,
+      phone: finalPhone,
+      companyName: cleanedCompany,
+      source: cleanedSource,
+      tags: buildLeadTags({
+        source: cleanedSource,
+        serviceType: cleanedServiceType,
+        serviceArea: cleanedServiceArea,
+        rentalType: cleanedRentalType,
+      }),
       customFields: [
-        { key: "service_type", field_value: serviceType },
-        { key: "rental_type", field_value: rentalType },
-        { key: "service_area", field_value: serviceArea },
-        { key: "event_date", field_value: eventDate },
-        { key: "delivery_address", field_value: deliveryAddress },
-        { key: "rental_duration", field_value: rentalDuration },
-        { key: "quantity_needed", field_value: quantityNeeded },
-        { key: "handwash_needed", field_value: handwashNeeded },
-        { key: "ada_needed", field_value: adaNeeded },
-        { key: "existing_customer", field_value: existingCustomer },
-        { key: "message", field_value: message },
+        { key: "service_type", field_value: cleanedServiceType },
+        { key: "rental_type", field_value: cleanedRentalType },
+        { key: "service_area", field_value: cleanedServiceArea },
+        { key: "event_date", field_value: cleanedEventDate },
+        { key: "delivery_address", field_value: cleanedDeliveryAddress },
+        { key: "rental_duration", field_value: cleanedRentalDuration },
+        { key: "quantity_needed", field_value: cleanedQuantityNeeded },
+        { key: "handwash_needed", field_value: cleanedHandwashNeeded },
+        { key: "ada_needed", field_value: cleanedAdaNeeded },
+        { key: "existing_customer", field_value: cleanedExistingCustomer },
+        { key: "message", field_value: cleanedMessage },
       ].filter((f) => f.field_value),
     })
 
@@ -184,7 +423,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           pipelineId: PIPELINE_ID,
           pipelineStageId: STAGE_ID,
           contactId,
-          name: buildOpportunityName({ name, company, serviceType, serviceArea }),
+          name: buildOpportunityName({
+            name: cleanedName,
+            company: cleanedCompany,
+            serviceType: cleanedServiceType,
+            serviceArea: cleanedServiceArea,
+          }),
           status: "open",
           assignedTo: OWNER_USER_ID,
           monetaryValue: 0,
@@ -208,28 +452,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const note = [
-        "Mission Sanitation Website Lead",
-        `Name: ${name || "—"}`,
-        `Email: ${email || "—"}`,
-        `Phone: ${phone || "—"}`,
-        `Company / Organization: ${company || "—"}`,
-        `Source: ${source || "—"}`,
-        `Service Type: ${serviceType || "—"}`,
-        `Rental Type: ${rentalType || "—"}`,
-        `Service Area: ${serviceArea || "—"}`,
-        `Event Date: ${eventDate || "—"}`,
-        `Delivery Address: ${deliveryAddress || "—"}`,
-        `Rental Duration: ${rentalDuration || "—"}`,
-        `Quantity Needed: ${quantityNeeded || "—"}`,
-        `Handwashing Stations Needed: ${handwashNeeded || "—"}`,
-        `ADA Unit Needed: ${adaNeeded || "—"}`,
-        `Existing Customer: ${existingCustomer || "—"}`,
-        message ? `Message: ${message}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n")
-
       await ghl("POST", `/contacts/${contactId}/notes/`, {
         body: note,
         userId: OWNER_USER_ID,

@@ -45,7 +45,7 @@ const LOCAL_BENEFITS = [
   {
     icon: Home,
     title: "Our Home Base",
-    desc: "Mission Sanitation is headquartered right here in Solvang at 484 4th Place. You are renting from your neighbors.",
+    desc: "Mission Sanitation is headquartered right here in Solvang at 1180B Mission Drive. You are renting from your neighbors.",
   },
   {
     icon: Truck,
