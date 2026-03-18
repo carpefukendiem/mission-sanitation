@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon.webp",
-    apple: "/favicon.webp",
+    icon: "/images/Mission%20Sanitation%20logo.webp",
+    apple: "/images/Mission%20Sanitation%20logo.webp",
   },
 }
 
