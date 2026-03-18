@@ -86,7 +86,6 @@ export const SERVICE_AREAS = [
 ] as const
 
 export const NAV_LINKS = [
-  { label: "Home", href: "/" },
   {
     label: "Services",
     href: "/services",
