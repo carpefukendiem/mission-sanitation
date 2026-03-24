@@ -38,6 +38,10 @@ const IP_RATE_LIMIT = 12
 const EMAIL_RATE_LIMIT = 6
 const PHONE_RATE_LIMIT = 6
 
+const TURNSTILE_SECRET = process.env.TURNSTILE_SECRET_KEY || ""
+const PIPELINE_NAME = process.env.GHL_PIPELINE_NAME || "Website Forms"
+const STAGE_NAME = process.env.GHL_STAGE_NAME || "New Form Lead"
+
 const SMS_DESTINATION_FALLBACK = "+18058864786"
 
 const SPAM_MESSAGE_PATTERNS: RegExp[] = [
@@ -46,6 +50,24 @@ const SPAM_MESSAGE_PATTERNS: RegExp[] = [
   /mortgage|loan|work\s*from\s*home|wfh/i,
   /click\s*here|get\s+your\s+free|winner|prize/i,
   /remotetact|intellagency|flowchat/i,
+  // Marketing/outreach bot patterns
+  /electrician|plumb(er|ing)|hvac|roofing|landscap/i,
+  /we\s+(can|will|help|offer|provide)\s+(you|your)/i,
+  /book\s*a\s*(call|meeting|demo|consultation)/i,
+  /grow\s+your\s+(business|revenue|leads)/i,
+  /virtual\s+assist|cold\s+(call|email|outreach)/i,
+  /marketing\s+(agency|service|campaign|strategy)/i,
+  /web\s*design|social\s*media\s*manage/i,
+  /I\s+(noticed|saw|found)\s+(your|the)\s+(website|site|business)/i,
+  /schedule\s+a\s+(free|quick|brief)\s+(call|chat|consultation)/i,
+  /interested\s+in\s+(our|my)\s+service/i,
+]
+
+// Spam tags — leads tagged with unrelated services are outreach bots
+const SPAM_TAG_KEYWORDS = [
+  "electrician", "plumber", "plumbing", "hvac", "roofing", "landscaping",
+  "solar", "painting", "cleaning service", "pest control", "locksmith",
+  "moving company", "garage door", "carpet cleaning", "pressure washing",
 ]
 
 function cleanText(input: string, maxLen: number): string {
@@ -179,6 +201,22 @@ async function sendSms(body: string): Promise<{ sent: boolean; reason?: string }
   return { sent: true }
 }
 
+async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
+  if (!TURNSTILE_SECRET) return true // skip if not configured
+  if (!token) return false
+  try {
+    const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret: TURNSTILE_SECRET, response: token, remoteip: ip }),
+    })
+    const data = (await res.json()) as { success: boolean }
+    return data.success === true
+  } catch {
+    return true // fail open if Cloudflare is unreachable
+  }
+}
+
 function isBot(hp: string, email: string, company: string, mountTime: string): boolean {
   if (hp) return true
   if (SPAM_EMAIL_PATTERNS.some((p) => p.test(email))) return true
@@ -278,6 +316,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     existingCustomer = "",
     _hp = "",
     _t = "",
+    _turnstile = "",
   } = (req.body || {}) as Record<string, string>
 
   // Reject non-JSON payloads early (common bot behavior).
@@ -323,6 +362,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ success: true })
   }
 
+  // Turnstile CAPTCHA verification (if configured).
+  const turnstileOk = await verifyTurnstile(_turnstile, clientIp)
+  if (!turnstileOk) {
+    console.log(`[contact] Turnstile failed — ip=${clientIp}`)
+    return res.status(200).json({ success: true })
+  }
+
   // Honeypot + heuristic bot checks.
   if (isBot(cleanedHp, finalEmail, cleanedCompany, cleanedMountTime)) {
     console.log(
@@ -339,6 +385,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json({ success: true })
   }
 
+  // Block leads whose service type contains unrelated industry keywords (outreach bots).
+  const allText = `${cleanedServiceType} ${cleanedMessage} ${cleanedCompany}`.toLowerCase()
+  if (SPAM_TAG_KEYWORDS.some((kw) => allText.includes(kw))) {
+    console.log(`[contact] Outreach bot blocked (industry keyword) — ip=${clientIp}`)
+    return res.status(200).json({ success: true })
+  }
+
   if (!finalEmail && !finalPhone) {
     return res.status(200).json({ success: true })
   }
@@ -349,11 +402,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   const note = [
     "Mission Sanitation Website Lead",
+    `Pipeline: ${PIPELINE_NAME} → ${STAGE_NAME}`,
+    `Source: ${cleanedSource || "—"}`,
+    "",
     `Name: ${cleanedName || "—"}`,
     `Email: ${finalEmail || "—"}`,
     `Phone: ${finalPhone || "—"}`,
     `Company / Organization: ${cleanedCompany || "—"}`,
-    `Source: ${cleanedSource || "—"}`,
     `Service Type: ${cleanedServiceType || "—"}`,
     `Rental Type: ${cleanedRentalType || "—"}`,
     `Service Area: ${cleanedServiceArea || "—"}`,
@@ -366,7 +421,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     `Existing Customer: ${cleanedExistingCustomer || "—"}`,
     cleanedMessage ? `Message: ${cleanedMessage}` : "",
   ]
-    .filter(Boolean)
+    .filter((line) => line !== undefined)
     .join("\n")
 
   // SMS forward (spam-filtered). Fails silently if Twilio isn't configured.

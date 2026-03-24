@@ -1,10 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, Loader2 } from "lucide-react"
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ""
 
 interface LeadFormProps {
   source: string
@@ -32,6 +35,8 @@ export function LeadForm({
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [mountTime, setMountTime] = useState<number | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState("")
+  const turnstileRef = useRef<TurnstileInstance>(null)
 
   useEffect(() => {
     setMountTime(Date.now())
@@ -51,6 +56,7 @@ export function LeadForm({
     })
     data.source = source
     data._t = mountTime ? String(mountTime) : ""
+    if (turnstileToken) data._turnstile = turnstileToken
 
     try {
       await fetch("/api/contact", {
@@ -61,6 +67,8 @@ export function LeadForm({
     } catch {
       // fail silently
     }
+    turnstileRef.current?.reset()
+    setTurnstileToken("")
     router.push("/thank-you")
   }
 
@@ -196,7 +204,17 @@ export function LeadForm({
         </div>
       )}
 
-      <Button type="submit" disabled={loading} className="w-full h-12 text-lg mt-2 cursor-pointer">
+      {TURNSTILE_SITE_KEY && (
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={TURNSTILE_SITE_KEY}
+          onSuccess={setTurnstileToken}
+          onExpire={() => setTurnstileToken("")}
+          options={{ size: "invisible", theme: "light" }}
+        />
+      )}
+
+      <Button type="submit" disabled={loading || (!!TURNSTILE_SITE_KEY && !turnstileToken)} className="w-full h-12 text-lg mt-2 cursor-pointer">
         {loading ? (
           <>
             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
