@@ -24,6 +24,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     siteName: "Mission Sanitation",
   },
+  verification: {
+    google: "3zOUTEzioEyphnzN0RFo71KVMvVS_GOf4paJAjsb3ck",
+  },
   robots: {
     index: true,
     follow: true,
