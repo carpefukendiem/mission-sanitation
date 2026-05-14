@@ -46,6 +46,18 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <LocalBusinessJsonLd />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-G02GJ2BR8R"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-G02GJ2BR8R');
+          `}
+        </Script>
       </head>
       <body className={`${inter.variable} antialiased font-sans`}>
         <Header />
